@@ -1,15 +1,18 @@
+package serialization;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.Date;
 
 /**
- * 
- *  
+ *
+ *
  * @author zhangjie
- * 
+ *
  */
-public class BogusPeriod {
-    // Byte stream couldn't have come from a real Period instance!
+public class BogusPeriod extends Period {
+    // Byte stream couldn't have come from a real serialization.Period instance!
     private static final byte[] serializedForm = {
             (byte) 0xac, (byte)0xed, 0x00, 0x05, 0x73, 0x72, 0x00, 0x06,
             0x50, 0x65, 0x72, 0x69, 0x6f, 0x64, 0x40, 0x7e, (byte)0xf8,
@@ -26,10 +29,26 @@ public class BogusPeriod {
             0x77, 0x08, 0x00, 0x00, 0x00, (byte)0xd5, 0x17, 0x69, 0x22,
             0x00, 0x78
     };
-    public static void main(String[] args) {
-        Period p = (Period) deserialize(serializedForm);
-        System.out.println(p);
+    private static final long serialVersionUID = -7320097131172513426L;
+
+    /**
+     * @param start the beginning of the period
+     * @param end   the end of the period; must not precede start
+     * @throws IllegalArgumentException if start is after end
+     * @throws NullPointerException     if start or end is null
+     */
+    private BogusPeriod(Date start, Date end) {
+        super(start, end);
+        super.getStart();
+        getStart();
     }
+
+    public static void main(String[] args) {
+        BogusPeriod bp = new BogusPeriod(new Date(), new Date());
+//        Period p = (Period) deserialize(serializedForm);
+//        System.out.println(p);
+    }
+
     // Returns the object with the specified serialized form
     private static Object deserialize(byte[] sf) {
         try {
@@ -38,5 +57,10 @@ public class BogusPeriod {
         } catch (IOException | ClassNotFoundException e) {
             throw new IllegalArgumentException(e);
         }
+    }
+
+    @Override
+    public Date getStart() {
+        return super.getStart();
     }
 }
