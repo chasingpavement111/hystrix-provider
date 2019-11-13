@@ -11,7 +11,7 @@
     <!--<dubbo:registry address="multicast://224.5.6.7:1234" />-->
     <!--<dubbo:registry address="zookeeper://127.0.0.1:2181"/>-->
     <!--指定group 时 需要保证provider 与对应的 consumer属于同一个group组。若不指定，默认为group名为“dubbo” 会导致找不到provider：No provider available from registry 127.0.0.1:2181 for service-->
-    <dubbo:registry group="aaa" address="zookeeper://192.168.3.157:2181"/>
+    <dubbo:registry group="aaa" address="zookeeper://192.168.3.34:2181"/>
 
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
     <dubbo:reference id="userService" check="false" interface="com.yowei.web.service.UserInfoService" />

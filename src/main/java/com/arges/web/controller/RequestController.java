@@ -32,11 +32,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author zhangjie
  */
 @RestController
-@RequestMapping
+@RequestMapping("/request")
 public class RequestController {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
+
+    @PostMapping("/mock")
+    public String mockInfo(@RequestBody Map<String, String> baseInfo) throws IOException {
+        if (baseInfo != null) {
+            baseInfo.forEach((key, value) -> {
+                System.out.println("key=" + key + ", value=" + value);
+            });
+        }
+        return "成功";
+    }
     @GetMapping
     public String getInfo(@RequestParam Map<String, String> baseInfo) throws IOException {
         try {
@@ -53,7 +63,6 @@ public class RequestController {
 //        return OBJECT_MAPPER.readValue(result, ResultData.class);
         return result;
     }
-
     @PostMapping
     public String getInfo(@RequestBody List<Map<String, String>> baseInfo) throws IOException {
 //        url = "http://127.0.0.1:8011/api/login";
